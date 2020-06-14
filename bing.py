@@ -1,7 +1,7 @@
 def getKey():
     with open("key.txt") as file: # Use file to refer to the file object
         data = file.read()
-        return data
+        return data.replace('\n','').replace(' ','')
     return ''
 
 # From https://stackoverflow.com/questions/9662346/python-code-to-remove-html-tags-from-a-string
