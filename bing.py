@@ -18,7 +18,7 @@ assert subscription_key
 search_url = "https://api.cognitive.microsoft.com/bing/v7.0/search"
 
 import requests
-import splitter
+import libraries.splitter as splitter
 def getSearchSummary(query):
     headers = {"Ocp-Apim-Subscription-Key": subscription_key}
     params = {"q": query, "textDecorations": True, "textFormat": "HTML", "answerCount": 1000, "responseFilter": "Webpages",}
@@ -37,7 +37,7 @@ def getSearchSummary(query):
                     emotionDict[k] += slugDict[k]
                 else:
                     emotionDict[k] = slugDict[k]
-            
+                
         return slugs, splitter.getSelection(sorted(emotionDict))
     except:
         return list(),dict()
@@ -76,7 +76,7 @@ def getRawPhraseFreqs(phrases,phraseFreq=dict(), value=1):
     return phraseFreq
 
 
-from phrase import get_phrases, get_similar
+from libraries.phrase import get_phrases, get_similar
 def processSlugs(slugs, query):
     phraseFreqs = dict()
     for slug in slugs:
@@ -87,11 +87,9 @@ def processSlugs(slugs, query):
 
 import json
 if __name__ == "__main__":
-    term = 'mass of the sun'
+    term = input('What term should be serached for? ')
     slugs, summary = getSearchSummary(term)
     phraseFreqs = processSlugs(slugs, term)
-    print(phraseFreqs)
-    freqsSorted = sorted(phraseFreqs.items(), key=lambda x: x[1], reverse=True)
-    print(json.dumps(dict(freqsSorted), sort_keys=False))
-    print(summary)
+    print('\nKeywords:\n'+str(phraseFreqs))
+    print('\nSummary:\n'+str(summary))
         
