@@ -101,7 +101,7 @@ def getQuotesDictFromSelectSentences(string, topic_sentences):
 def getEmotionalDict(string):
         emotions = dict()
         for word in sentenceSplit(string):
-            emotions[word] = abs(sid.polarity_scores(word)['compound'])
+            emotions[word] = abs(sid.polarity_scores(word)['compound'])/(1+word.count(' '))
         return emotions
 
 def getEmotionalSelection(string, number=-1):
