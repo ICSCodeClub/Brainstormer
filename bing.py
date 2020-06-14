@@ -29,7 +29,7 @@ def getSearchSummary(query):
         slugs = []
         emotionDict = dict()
         for responses in search_results['webPages']['value']:
-            slugs.append(cleanhtml(str(responses['snippet'])).lower().replace(query.lower(),'').lstrip())
+            slugs.append(cleanhtml(str(responses['snippet'])).lower().replace(query.lower().strip()+' ','').lstrip())
 
             slugDict = splitter.getEmotionalDict(cleanhtml(str(responses['snippet'])))
             for k in slugDict:
