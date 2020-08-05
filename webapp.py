@@ -21,6 +21,8 @@ def brainstorm(query):
     for k in slugs:
         if not isinstance(slugs[k], list):
             slugs[k] = [slugs[k]]
+        if 'http' in str(k) or 'videos' in str(k):
+            slugs.pop(k)
     
     maxVal = slugs[max(slugs, key=lambda k: slugs[k][0])]
     if isinstance(maxVal, list):
