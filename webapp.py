@@ -18,7 +18,7 @@ def brainstorm(query):
     
     slugs, summary = bing.getSearchSummary(query)
     slugs = bing.processSlugs(slugs, query)
-    for k in slugs:
+    for k in slugs.copy():
         if not isinstance(slugs[k], list):
             slugs[k] = [slugs[k]]
         if 'http' in str(k) or 'videos' in str(k):
