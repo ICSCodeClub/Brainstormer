@@ -28,8 +28,10 @@ def getSearchSummary(query):
     try:
         slugs = []
         emotionDict = dict()
+        originDict = dict() #stores keyword, url
         for responses in search_results['webPages']['value']:
-            slugs.append(cleanhtml(str(responses['snippet'])).lower().replace(query.lower().strip()+' ','').lstrip())
+            slug = cleanhtml(str(responses['snippet'])).lower().replace(query.lower().strip()+' ','').strip()
+            slugs.append([slug, responses['url']])
 
             slugDict = splitter.getEmotionalDict(cleanhtml(str(responses['snippet'])))
             for k in slugDict:
@@ -79,16 +81,26 @@ def getRawPhraseFreqs(phrases,phraseFreq=dict(), value=1):
 from libraries.phrase import get_phrases, get_similar
 def processSlugs(slugs, query):
     phraseFreqs = dict()
-    for slug in slugs:
+    raw_slugs = [s[0] for s in slugs] # Ignore source for now
+    for slug in raw_slugs:
         slug = cleanStr(slug)
         getPhraseFreqs(get_phrases(slug), phraseFreq=phraseFreqs)
     getPhraseFreqs(get_similar(query), phraseFreq=phraseFreqs, multiplier=1.3)
+    
+    # Add source to dictionary
+    for k in phraseFreqs:
+        # if key is in slug sources, add source
+        for i in range(len(raw_slugs)):
+            if k in raw_slugs[i]:
+                phraseFreqs[k] = [phraseFreqs[k], slugs[i][1]]
+                break
     return phraseFreqs
 
 import json
 if __name__ == "__main__":
     term = input('What term should be serached for? ')
     slugs, summary = getSearchSummary(term)
+    print(slugs)
     phraseFreqs = processSlugs(slugs, term)
     print('\nKeywords:\n'+str(phraseFreqs))
     print('\nSummary:\n'+str(summary))
