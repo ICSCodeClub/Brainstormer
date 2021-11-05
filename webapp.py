@@ -13,6 +13,7 @@ from functools import lru_cache
 @lru_cache(maxsize=36)
 @app.route('/api/storm/<query>')
 def brainstorm(query):
+    print('requestred!' + query)
     if len(query.lstrip()) <= 1:
         return jsonify({'keywords': dict(),'summary': list(),})
     
