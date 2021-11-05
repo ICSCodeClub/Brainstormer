@@ -14,8 +14,9 @@ def cleanhtml(raw_html):
 
 subscription_key = getKey()
 assert subscription_key
+print(subscription_key)
 
-search_url = "https://api.cognitive.microsoft.com/bing/v7.0/search"
+search_url = "https://api.bing.microsoft.com/v7.0/search"
 
 import requests
 import libraries.splitter as splitter
