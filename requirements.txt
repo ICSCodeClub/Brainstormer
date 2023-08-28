@@ -1,5 +1,0 @@
-ipython==7.13.0
-python-Levenshtein==0.12.0
-Flask==1.1.1
-waitress==1.4.3
-nltk==3.5

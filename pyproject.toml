@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "brainstormer"
+version = "0.1.0"
+description = "Generates relevant noun phrases based on any input using a bing search"
+authors = ["Leon L"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+python-Levenshtein = "^0.12.0"
+Flask = "^2.2.2"
+waitress = "^1.4.3"
+nltk = "^3.5"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+
